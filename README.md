@@ -3,8 +3,8 @@
 ## Project Description
 
 ## Run
-- mvn compile
-- mvn exec:java
+- compile project: `mvn compile`
+- run project: `mvn exec:java`
 
 ## Tech Stack
 <p align="center">
