@@ -46,12 +46,14 @@
             <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -78,11 +80,13 @@
             <artifactId>cucumber-junit</artifactId>
             <version>7.22.1</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
             <version>7.22.1</version>
         </dependency>
+        -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-jvm-deps</artifactId>
