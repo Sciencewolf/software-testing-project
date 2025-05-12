@@ -24,7 +24,7 @@ A projekteket GitLabon, GitHubon vagy Bitbucketen kell létrehozni. A csapatokna
 Hasonlóképpen a JIRA projekteket is a csapatoknak kell létrehozni és elérhetővé tenni az Atlassian oldalán. 
 
 ## Run
-- compile project: `mvn compile`
+- compile project: `mvn compile` / `mvn clean install`
 - run project: `mvn exec:java`
 
 ## Tech Stack
