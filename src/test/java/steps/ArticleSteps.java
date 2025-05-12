@@ -17,9 +17,11 @@ import static org.junit.Assert.*;
 
 public class ArticleSteps {
 
-    WebDriver driver;
-    long pageLoadStart;
-    long pageLoadEnd;
+    private WebDriver driver;
+    private long pageLoadStart;
+    private long pageLoadEnd;
+    private final String BASE_URL = "https://wearecommunity.io";
+    private final String ARTICLES_URL = String.join("/", BASE_URL, "articles");
 
     // WebDriver inicializálása
     private void initializeDriver() {
@@ -33,8 +35,8 @@ public class ArticleSteps {
     public void thePageIsOpened(String pageName) {
         initializeDriver();
         switch (pageName) {
-            case "Main" -> driver.get("https://wearecommunity.io/");
-            case "Articles" -> driver.get("https://wearecommunity.io/articles");
+            case "Main" -> driver.get(BASE_URL);
+            case "Articles" -> driver.get(ARTICLES_URL);
         }
     }
 
@@ -65,7 +67,7 @@ public class ArticleSteps {
     public void navigateToArticlesPage() {
         initializeDriver();
         pageLoadStart = System.currentTimeMillis();
-        driver.get("https://wearecommunity.io/articles");
+        driver.get(ARTICLES_URL);
         pageLoadEnd = System.currentTimeMillis();
     }
 
@@ -86,7 +88,7 @@ public class ArticleSteps {
     @Then("the HTTP response status should be 200")
     public void checkHttpStatus() {
         try {
-            URL url = new URL("https://wearecommunity.io/articles");
+            URL url = new URL(ARTICLES_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -151,12 +153,4 @@ public class ArticleSteps {
             assertFalse("An article title is empty", text.isEmpty());
         }
     }
-
-
-
-
-
-
-
-
 }
