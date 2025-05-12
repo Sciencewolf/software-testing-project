@@ -20,6 +20,8 @@ public class ArticleSteps {
     private static WebDriver driver;
     long pageLoadStart;
     long pageLoadEnd;
+    private final String BASE_URL = "https://wearecommunity.io";
+    private final String ARTICLES_URL = String.join("/", BASE_URL, "articles");
 
     @BeforeAll
     public static void setUp() {
@@ -40,8 +42,8 @@ public class ArticleSteps {
     @Given("the {string} site is opened")
     public void thePageIsOpened(String pageName) {
         switch (pageName) {
-            case "Main" -> driver.get("https://wearecommunity.io/");
-            case "Articles" -> driver.get("https://wearecommunity.io/articles");
+            case "Main" -> driver.get(BASE_URL);
+            case "Articles" -> driver.get(ARTICLES_URL);
         }
     }
 

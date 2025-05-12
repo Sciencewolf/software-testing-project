@@ -13,7 +13,7 @@ Feature: Displaying and interacting with the article list on the Articles page
     And the page title should contain 'Articles'
     And the HTTP response status should be 200
 
-  Scenario: Each article preview contains title
+  Scenario: Each article preview contains title, a publication date and an image
     Given the 'Articles' button is clicked
     Then each article preview contains a title
     And each article preview contains a publication date
