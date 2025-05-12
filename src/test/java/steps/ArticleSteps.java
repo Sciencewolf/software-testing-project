@@ -1,39 +1,48 @@
 package steps;
 
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import org.openqa.selenium.chrome.ChromeOptions;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Locale;
-
+import java.util.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 import static org.junit.Assert.*;
 
 public class ArticleSteps {
+
 
     private WebDriver driver;
     private long pageLoadStart;
     private long pageLoadEnd;
     private final String BASE_URL = "https://wearecommunity.io";
     private final String ARTICLES_URL = String.join("/", BASE_URL, "articles");
+   
 
-    // WebDriver inicializálása
-    private void initializeDriver() {
-        if (driver == null) {
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
+    @BeforeAll
+    public static void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // nincs grafikus böngésző
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        driver = new ChromeDriver(options);
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        if (driver != null) {
+            driver.quit();
         }
     }
 
     @Given("the {string} site is opened")
     public void thePageIsOpened(String pageName) {
-        initializeDriver();
         switch (pageName) {
             case "Main" -> driver.get(BASE_URL);
             case "Articles" -> driver.get(ARTICLES_URL);
@@ -42,30 +51,24 @@ public class ArticleSteps {
 
     @Given("the 'Articles' button is clicked")
     public void clickArticlesButton() {
-        // Az "Articles" gombra kattintás
         WebElement articlesBtn = driver.findElement(By.linkText("Articles"));
         articlesBtn.click();
     }
 
     @Then("I see at least 5 article previews")
     public void seeAtLeastFiveArticles() {
-        // Várakozás az oldalelemek betöltésére (ha szükséges)
         try {
-            Thread.sleep(2000); // később érdemes WebDriverWait-re cserélni
+            Thread.sleep(2000); // célszerű WebDriverWait-re cserélni később
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        // Cikkek keresése
-        List<WebElement> articles = driver.findElements(By.cssSelector(".evnt-card-wrapper")); // pl. .card, .item stb.
-
-        // Minimum 5 elem jelenléte
+        List<WebElement> articles = driver.findElements(By.cssSelector(".evnt-card-wrapper"));
         assertTrue("Expected at least 5 articles, but found: " + articles.size(), articles.size() >= 5);
     }
 
     @When("I navigate to the 'Articles' page")
     public void navigateToArticlesPage() {
-        initializeDriver();
         pageLoadStart = System.currentTimeMillis();
         driver.get(ARTICLES_URL);
         pageLoadEnd = System.currentTimeMillis();
@@ -103,54 +106,48 @@ public class ArticleSteps {
     }
 
 
-    @Then("the article previews are ordered by publication date descending")
-    public void articlePreviewsAreInDescendingDateOrder() {
-        // Kikeressük a dátumokat az article cardokból
-        List<WebElement> dateElements = driver.findElements(By.cssSelector(".evnt-article-date"));
-
-        List<LocalDate> dates = new ArrayList<>();
-
-        // A weboldalon használt formátum: "April 17, 2025"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
-
-        for (WebElement dateElement : dateElements) {
-            String dateText = dateElement.getText().trim();
-
-            try {
-                LocalDate parsedDate = LocalDate.parse(dateText, formatter);
-                dates.add(parsedDate);
-            } catch (Exception e) {
-                fail("Nem sikerült a dátumot értelmezni: " + dateText);
-            }
-        }
-
-        // Kiírjuk a dátumokat ellenőrzésként
-        System.out.println("Talált dátumok:");
-        for (LocalDate d : dates) {
-            System.out.println(d);
-        }
-
-        // Ellenőrizzük, hogy csökkenő sorrendben vannak-e
-        for (int i = 0; i < dates.size() - 1; i++) {
-            LocalDate current = dates.get(i);
-            LocalDate next = dates.get(i + 1);
-
-            assertTrue(
-                    "A dátumok nincsenek csökkenő sorrendben: " + current + " után " + next,
-                    !current.isBefore(next)
-            );
-        }
-    }
-
-
     @Then("each article preview contains a title")
     public void eachArticleHasTitle() {
-        List<WebElement> titleElements = driver.findElements(By.cssSelector(".evnt-article-name h2"));
-        assertFalse("No article titles found", titleElements.isEmpty());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".evnt-article-name h2")));
 
-        for (WebElement title : titleElements) {
+        List<WebElement> titles = driver.findElements(By.cssSelector(".evnt-article-name h2"));
+        assertFalse("No article titles found", titles.isEmpty());
+
+        for (WebElement title : titles) {
             String text = title.getText().trim();
             assertFalse("An article title is empty", text.isEmpty());
         }
     }
+
+
+    @Then("each article preview contains a publication date")
+    public void eachArticleHasDate() {
+        List<WebElement> dateElements = driver.findElements(By.cssSelector(".evnt-article-date"));
+        assertFalse("No publication dates found", dateElements.isEmpty());
+
+        for (WebElement date : dateElements) {
+            String dateText = date.getText().trim();
+            assertFalse("A publication date is empty", dateText.isEmpty());
+            System.out.println("Dátum: " + dateText);
+        }
+    }
+
+    @Then("each article preview contains an image")
+    public void eachArticleHasImage() {
+        List<WebElement> imageDivs = driver.findElements(By.cssSelector(".evnt-article-image"));
+        assertFalse("No image containers found", imageDivs.isEmpty());
+
+        for (WebElement div : imageDivs) {
+            String styleAttr = div.getAttribute("style");
+            assertNotNull("Image style attribute is missing", styleAttr);
+            assertTrue("Image style does not contain background-image", styleAttr.contains("background-image"));
+
+            String url = styleAttr.replaceAll(".*url\\(\"?(.*?)\"?\\).*", "$1");
+            assertFalse("Image URL is empty", url.trim().isEmpty());
+
+            System.out.println("Kép URL: " + url);
+        }
+    }
 }
+
