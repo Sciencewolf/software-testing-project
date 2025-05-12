@@ -17,11 +17,13 @@ import static org.junit.Assert.*;
 
 public class ArticleSteps {
 
-    private static WebDriver driver;
-    long pageLoadStart;
-    long pageLoadEnd;
+
+    private WebDriver driver;
+    private long pageLoadStart;
+    private long pageLoadEnd;
     private final String BASE_URL = "https://wearecommunity.io";
     private final String ARTICLES_URL = String.join("/", BASE_URL, "articles");
+   
 
     @BeforeAll
     public static void setUp() {
@@ -68,7 +70,7 @@ public class ArticleSteps {
     @When("I navigate to the 'Articles' page")
     public void navigateToArticlesPage() {
         pageLoadStart = System.currentTimeMillis();
-        driver.get("https://wearecommunity.io/articles");
+        driver.get(ARTICLES_URL);
         pageLoadEnd = System.currentTimeMillis();
     }
 
@@ -89,7 +91,7 @@ public class ArticleSteps {
     @Then("the HTTP response status should be 200")
     public void checkHttpStatus() {
         try {
-            URL url = new URL("https://wearecommunity.io/articles");
+            URL url = new URL(ARTICLES_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -117,6 +119,7 @@ public class ArticleSteps {
             assertFalse("An article title is empty", text.isEmpty());
         }
     }
+
 
     @Then("each article preview contains a publication date")
     public void eachArticleHasDate() {
@@ -147,3 +150,4 @@ public class ArticleSteps {
         }
     }
 }
+
