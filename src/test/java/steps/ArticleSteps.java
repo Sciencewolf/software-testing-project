@@ -18,8 +18,8 @@ import static org.junit.Assert.*;
 public class ArticleSteps {
 
     private static WebDriver driver;
-    long pageLoadStart;
-    long pageLoadEnd;
+    private long pageLoadStart;
+    private long pageLoadEnd;
     private final String BASE_URL = "https://wearecommunity.io";
     private final String ARTICLES_URL = String.join("/", BASE_URL, "articles");
 
