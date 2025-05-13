@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class ArticleSteps {
 
 
-    private WebDriver driver;
+    private static WebDriver driver;
     private long pageLoadStart;
     private long pageLoadEnd;
     private final String BASE_URL = "https://wearecommunity.io";
