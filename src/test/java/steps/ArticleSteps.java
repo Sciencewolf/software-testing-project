@@ -68,7 +68,7 @@ public class ArticleSteps {
     @When("I navigate to the 'Articles' page")
     public void navigateToArticlesPage() {
         pageLoadStart = System.currentTimeMillis();
-        driver.get("https://wearecommunity.io/articles");
+        driver.get(ARTICLES_URL);
         pageLoadEnd = System.currentTimeMillis();
     }
 
@@ -89,7 +89,7 @@ public class ArticleSteps {
     @Then("the HTTP response status should be 200")
     public void checkHttpStatus() {
         try {
-            URL url = new URL("https://wearecommunity.io/articles");
+            URL url = new URL(ARTICLES_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
