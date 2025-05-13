@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 
 public class ArticleSteps {
 
+
     private static WebDriver driver;
     private long pageLoadStart;
     private long pageLoadEnd;

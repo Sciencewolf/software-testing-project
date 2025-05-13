@@ -19,12 +19,12 @@
             <organizationUrl>https://inf.unideb.hu/</organizationUrl>
         </developer>
         <developer>
-            <name>Levente Balogh</name>
+            <name>Balogh Levente</name>
             <organization>Faculty of Informatics, University of Debrecen</organization>
             <organizationUrl>https://inf.unideb.hu/</organizationUrl>
         </developer>
         <developer>
-            <name>Marcell Kóródi</name>
+            <name>Kóródi Marcell</name>
             <organization>Faculty of Informatics, University of Debrecen</organization>
             <organizationUrl>https://inf.unideb.hu/</organizationUrl>
         </developer>
@@ -86,13 +86,6 @@
             <artifactId>cucumber-junit</artifactId>
             <version>7.22.1</version>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>7.22.1</version>
-        </dependency>
-        -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-jvm-deps</artifactId>
