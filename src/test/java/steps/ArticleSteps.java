@@ -23,7 +23,6 @@ public class ArticleSteps {
     private long pageLoadEnd;
     private final String BASE_URL = "https://wearecommunity.io";
     private final String ARTICLES_URL = String.join("/", BASE_URL, "articles");
-   
 
     @BeforeAll
     public static void setUp() {
@@ -120,7 +119,6 @@ public class ArticleSteps {
         }
     }
 
-
     @Then("each article preview contains a publication date")
     public void eachArticleHasDate() {
         List<WebElement> dateElements = driver.findElements(By.cssSelector(".evnt-article-date"));
@@ -150,4 +148,3 @@ public class ArticleSteps {
         }
     }
 }
-
