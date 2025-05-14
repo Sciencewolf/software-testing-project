@@ -8,7 +8,8 @@ import io.cucumber.junit.CucumberOptions;
         glue = {"steps"},                             // itt vannak a StepDefinition osztályok
         plugin = {"pretty", "html:target/cucumber-report.html"}, // jelentés generálás
         stepNotifications = true,
-        monochrome = true
+        monochrome = true,
+        tags = "not @skip"
 
 )
 public class TestRunner {

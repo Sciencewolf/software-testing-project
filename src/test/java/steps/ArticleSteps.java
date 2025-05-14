@@ -16,29 +16,23 @@ import java.time.Duration;
 import static org.junit.Assert.*;
 
 public class ArticleSteps {
-
-
     private static WebDriver driver;
+
     private long pageLoadStart;
     private long pageLoadEnd;
+
     private final String BASE_URL = "https://wearecommunity.io";
     private final String ARTICLES_URL = String.join("/", BASE_URL, "articles");
    
 
     @BeforeAll
     public static void setUp() {
-        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new"); // nincs grafikus böngésző
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
-        driver = new ChromeDriver(options);
+        driver = CustomDriverManager.getDriver();
     }
 
     @AfterAll
     public static void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        CustomDriverManager.quitDriver();
     }
 
     @Given("the {string} site is opened")
