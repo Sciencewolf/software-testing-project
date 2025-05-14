@@ -6,6 +6,7 @@ Feature: Events page displays upcoming and past events
 
   Scenario: Events page loads successfully
     Then the page should return HTTP 200 status
+    And in the top middle side of the page 'Events' subtitle should be appear
 
   Scenario: Upcoming Events section shows at least one event
     When Click on the Upcoming Events tab
