@@ -25,25 +25,10 @@ import static org.junit.Assert.*;
 
 public class EventsSteps {
 
-    private static WebDriver driver;
+    private static WebDriver driver = CustomDriverManager.getDriver();
+
     private static final String BASE_URL = "https://wearecommunity.io";
     private static final String EVENTS_URL = BASE_URL + "/events";
-
-    @BeforeAll
-    public static void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
-        driver = new ChromeDriver(options);
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 
     @Given("the Main site is opened")
     public void openMainSite() {
