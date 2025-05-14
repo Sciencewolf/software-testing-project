@@ -24,29 +24,52 @@ public class AboutUsSteps {
         System.out.println("Page opened: " + pageUrl + "");
     }
 
-    @Then("Find {string} email")
-    public void findEmailOnPage(String givenEmailText) {
+    @Then("Find {string} text")
+    public void findTextOnPage(String givenText) {
         dismissCookieBannerIfPresent();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        By emailSelector = By.cssSelector("a[href='mailto:" + givenEmailText + "']");
 
-        WebElement emailTag = wait.until(ExpectedConditions.presenceOfElementLocated(emailSelector));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", emailTag);
-        wait.until(ExpectedConditions.visibilityOf(emailTag));
+        WebElement h1 = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("h1.HeroHeader-module__pageHeading__3mENp")));
 
-        String emailText = emailTag.getText().trim();
-        Assert.assertTrue("Expected email not found", emailText.contains(givenEmailText));
+        String headingText = h1.getText().trim();
+        System.out.println("Page heading: " + headingText);
 
-        System.out.println("Email found: " + emailText);
+        Assert.assertEquals(givenText, headingText);
+
     }
 
-    @Given("Press 'Go to the FAQ page' button")
-    public void pressGoToTheFaqPageButton() {
+    @Given("Scroll to footer")
+    public void scrollToFooter() {
+        dismissCookieBannerIfPresent();
+
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+        System.out.println("Scrolled to bottom");
+    }
+
+    @Then("Year in footer should be equal to current year")
+    public void checkYearInFooter() {
         dismissCookieBannerIfPresent();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        WebElement faqBtn = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Go to the FAQ page")));
+        WebElement year = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".evnt-copyright")));
+
+        String currentYear = String.valueOf(java.time.LocalDate.now().getYear());
+        String footerYear = year.getText().trim();
+
+        String extractedYearFromFooter = footerYear.replaceAll("\\D+", "");
+
+        Assert.assertEquals(currentYear, extractedYearFromFooter);
+    }
+
+    @Given("Press {string} button")
+    public void pressGoToTheFaqPageButton(String givenText) {
+        dismissCookieBannerIfPresent();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement faqBtn = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(givenText)));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", faqBtn);
 
         String originalWindow = driver.getWindowHandle();

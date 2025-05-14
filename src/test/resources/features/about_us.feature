@@ -1,9 +1,12 @@
-@skip
 Feature: About Us and FAQ Page
 
-  Scenario: Search for email on About Us page
+  Scenario: Find ABOUT US text on About us page
     Given Open 'https://wearecommunity.io/about-us' page
-    Then Find 'ask@wearecommunity.io' email
+    Then Find 'ABOUT US' text
+
+  Scenario: Check year in footer
+    Given Scroll to footer
+    Then Year in footer should be equal to current year
 
   Scenario: Find and click 'Go to the FAQ page' button
     Given Press 'Go to the FAQ page' button
