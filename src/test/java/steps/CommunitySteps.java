@@ -16,23 +16,8 @@ import static org.junit.Assert.*;
 
 public class CommunitySteps {
 
-    private static WebDriver driver;
+    private static WebDriver driver = CustomDriverManager.getDriver();
 
-    @BeforeAll
-    public static void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
-        driver = new ChromeDriver(options);
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 
     // --- Background step ---
     @Given("I open the {string} page")
