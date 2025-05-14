@@ -21,7 +21,6 @@ public class AboutUsSteps {
     @Given("Open {string} page")
     public void openPage(String pageUrl) {
         driver.get(pageUrl);
-        System.out.println("Page opened: " + pageUrl + "");
     }
 
     @Then("Find {string} text")
@@ -34,10 +33,7 @@ public class AboutUsSteps {
                 By.cssSelector("h1.HeroHeader-module__pageHeading__3mENp")));
 
         String headingText = h1.getText().trim();
-        System.out.println("Page heading: " + headingText);
-
         Assert.assertEquals(givenText, headingText);
-
     }
 
     @Given("Scroll to footer")
@@ -45,8 +41,6 @@ public class AboutUsSteps {
         dismissCookieBannerIfPresent();
 
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
-
-        System.out.println("Scrolled to bottom");
     }
 
     @Then("Year in footer should be equal to current year")
@@ -83,8 +77,6 @@ public class AboutUsSteps {
                 break;
             }
         }
-
-        System.out.println("FAQ page opened");
     }
 
     @Then("Load {string} page")
@@ -94,14 +86,12 @@ public class AboutUsSteps {
 
         String currentUrl = driver.getCurrentUrl();
         Assert.assertTrue("Current URL did not match", currentUrl.contains(expectedUrl));
-        System.out.println("Current URL: " + currentUrl);
     }
 
     @And("Title should be {string}")
     public void checkTitle(String expectedTitle) {
         String actualTitle = driver.getTitle();
         Assert.assertTrue("Title mismatch", actualTitle.contains(expectedTitle));
-        System.out.println("Title: " + actualTitle);
     }
 
     private void dismissCookieBannerIfPresent() {
