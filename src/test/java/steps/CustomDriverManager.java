@@ -8,9 +8,15 @@ public class CustomDriverManager {
     private static WebDriver driver;
 
     public static WebDriver getDriver() {
+        String headless = System.getProperty("headless", "true");
+
         if (driver == null) {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless=new"); // nincs grafikus böngésző
+
+            if(Boolean.parseBoolean(headless)) {
+                options.addArguments("--headless");
+            }
+
             options.addArguments("--disable-gpu");
             options.addArguments("--window-size=1920,1080");
             driver = new ChromeDriver(options);

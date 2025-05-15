@@ -33,6 +33,13 @@ cd software-testing-project
 ```shell
 mvn clean install
 ```
+3. (Optional) Run the tests with visible Chrome browser (non-headless mode)
+```shell
+mvn clean install -Dheadless=false
+```
+> ℹ️ By default, the tests run in **headless mode**, meaning the Chrome browser window will not be visible.  
+> You can pass the `headless=false` system property to see the browser during test execution.
+
 
 ## Tech Stack
 <p align="center">

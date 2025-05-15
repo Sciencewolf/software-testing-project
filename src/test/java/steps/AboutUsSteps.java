@@ -27,7 +27,7 @@ public class AboutUsSteps {
     public void findTextOnPage(String givenText) {
         dismissCookieBannerIfPresent();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
         WebElement h1 = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.cssSelector("h1.HeroHeader-module__pageHeading__3mENp")));
@@ -47,7 +47,7 @@ public class AboutUsSteps {
     public void checkYearInFooter() {
         dismissCookieBannerIfPresent();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement year = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".evnt-copyright")));
 
         String currentYear = String.valueOf(java.time.LocalDate.now().getYear());
@@ -62,7 +62,7 @@ public class AboutUsSteps {
     public void pressGoToTheFaqPageButton(String givenText) {
         dismissCookieBannerIfPresent();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement faqBtn = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(givenText)));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", faqBtn);
 
@@ -81,7 +81,7 @@ public class AboutUsSteps {
 
     @Then("Load {string} page")
     public void loadFaqPage(String expectedUrl) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.urlContains(expectedUrl));
 
         String currentUrl = driver.getCurrentUrl();
@@ -96,7 +96,7 @@ public class AboutUsSteps {
 
     private void dismissCookieBannerIfPresent() {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
             WebElement acceptBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
             acceptBtn.click();
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("onetrust-banner-sdk")));
