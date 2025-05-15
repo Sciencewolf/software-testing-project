@@ -23,8 +23,15 @@ A projekteket GitLabon, GitHubon vagy Bitbucketen kell létrehozni. A csapatokna
 
 Hasonlóképpen a JIRA projekteket is a csapatoknak kell létrehozni és elérhetővé tenni az Atlassian oldalán. 
 
-## Run
-- run project: `mvn clean install`
+## Getting Started
+1. Clone the repo
+```shell
+git clone https://github.com/Sciencewolf/software-testing-project.git
+```
+2. Run Project
+ ```shell
+mvn clean install
+```
 
 ## Tech Stack
 <p align="center">
