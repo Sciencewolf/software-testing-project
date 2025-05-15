@@ -27,9 +27,10 @@ Hasonlóképpen a JIRA projekteket is a csapatoknak kell létrehozni és elérhe
 1. Clone the repo
 ```shell
 git clone https://github.com/Sciencewolf/software-testing-project.git
+cd software-testing-project
 ```
-2. Run Project
- ```shell
+2. Run the tests in the default mode (headless Chrome)
+```shell
 mvn clean install
 ```
 
