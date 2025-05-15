@@ -51,7 +51,7 @@ public class ArticleSteps {
     @Then("I see at least 5 article previews")
     public void seeAtLeastFiveArticles() {
         try {
-            Thread.sleep(2000); // célszerű WebDriverWait-re cserélni később
+            Thread.sleep(2000); 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

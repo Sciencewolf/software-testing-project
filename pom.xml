@@ -153,11 +153,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/steps/AboutUsSteps.java</exclude> <!-- adjust this path if needed -->
-                    </excludes>
-                </configuration>
             </plugin>
 
             <plugin>
