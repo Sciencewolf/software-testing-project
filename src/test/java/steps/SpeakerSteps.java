@@ -15,26 +15,10 @@ import static org.junit.Assert.*;
 
 public class SpeakerSteps {
 
-    private static WebDriver driver;
+    private static WebDriver driver = CustomDriverManager.getDriver();
 
     private final String BASE_URL = "https://wearecommunity.io";
     private final String ARTICLES_URL = String.join("/", BASE_URL, "speakers");
-
-    @BeforeAll
-    public static void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
-        driver = new ChromeDriver(options);
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 
     //Background
     @Given("I open the speakers page")
