@@ -59,17 +59,15 @@ public class SpeakerSteps {
     //Scenario - Speaker title
     @Then("The first speaker tile should be visible")
     public void the_first_speaker_tile_should_be_visible() {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".evnt-card-wrapper")));
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".evnt-card-wrapper")));
         List<WebElement> cards = driver.findElements(By.cssSelector(".evnt-card-wrapper"));
         assertFalse("No speaker cards found on the page", cards.isEmpty());
     }
 
     @Then("The tile should contain a name")
     public void the_tile_should_contain_a_name() {
-        By nameLocator = By.xpath("//*[@id=\"app\"]/div/main/section[3]/div/div/div[1]/div[1]/div[1]/div/a/div/div/div[2]/div[1]/h2");
-        WebElement nameElement = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(nameLocator));
+        By nameLocator = By.className("evnt-user-name");
+        WebElement nameElement = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(nameLocator));
         String nameText = nameElement.getText();
         assertNotNull("The name element is null!", nameText);
         assertFalse("The name text is empty!", nameText.trim().isEmpty());
@@ -78,8 +76,7 @@ public class SpeakerSteps {
     //Scenario - help button
     @When("I click on the in-app help button")
     public void i_click_on_the_in_app_help_button() {
-        WebElement helpButton = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class*='inAppHelpButton']")));
+        WebElement helpButton = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class*='inAppHelpButton']")));
         helpButton.click();
     }
 
